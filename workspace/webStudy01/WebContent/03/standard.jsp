@@ -1,0 +1,44 @@
+<%@page import="java.util.Date"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"    %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>03/standard.jsp</title>
+</head>
+<body>
+<h4>JSP(Java Server Page)</h4>
+<pre>
+	JSP : 템플릿(1) 기반의 스크립트(2) 방식의 자바 웹 페이지 스펙
+	JSP 소스의 표준 구성 요소
+	1. 정적 텍스트 : HTML, CSS, Javascript, 일반 text
+	2. 스크립트 요소 
+	 	1) 지시자(directive) : <%--@  --%>, jsp 페이지에 대한 부가정보 설정에 사용
+	 		구체적인 설정은 지시자의 속성(attribute)으로 남긴다. => 로직에 직접적인 영향은 없다
+	 		- page (required) : JSP 페이지에 대한 전처리 등의 환경 설정에 사용
+	 		- include (optional)
+	 		- taglib (optional)
+	 	2) 스크립틀릿(scriptlet) : 지역변수로 설정
+	 	<% 
+	 	
+	 	//java code 
+	 		String temp = "random";
+	 	%>
+	 	3) 표현식 (expression) : <%= "변수 or 값"  %>,<%=new Date() %> 
+	 	4) 선언부 (declaration) : 전역 변수화
+	 	<%!
+	 	public void test(){
+	 		
+	 	}
+	 	//전역변수 선언 or 메소드 선언 
+	 	%>
+	 	5) 주석 (comment) : <%-- 주석 --%> 
+	 	- 서버사이드 주석  : java, JSP 주석 -> 가능하면 서버사이드 주석을 쓸 것
+	 	- 클라이언트 사이드 주석 : HTML, javascript 주석 -> 남발하면 응답데이터 크기 증가 / 정보 노출의 위험성이 있다.
+	3.기본 객체(내장객체) : Scope를 통한 데이터 공유
+	4.표현 언어(Expression Language)
+	5.JSTL(Java Standard Tag Library)
+</pre>
+</body>
+</html>

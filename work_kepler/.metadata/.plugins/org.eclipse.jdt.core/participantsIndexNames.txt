@@ -1,0 +1,5 @@
+INDEX VERSION 1.126
+D:\A_TeachingMaterial\7.JspSpring\work_kepler\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2516025697.index
+\dummyProject2\src
+D:\A_TeachingMaterial\7.JspSpring\work_kepler\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4122395963.index
+\dummyProject\src

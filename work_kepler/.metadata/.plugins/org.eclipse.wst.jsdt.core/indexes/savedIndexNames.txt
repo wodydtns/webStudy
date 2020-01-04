@@ -1,0 +1,7 @@
+INDEX VERSION 1.3+D:\A_TeachingMaterial\7.JspSpring\work_kepler\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+366826230.index
+3661814227.index
+2133668938.index
+55067735.index
+2742067887.index
+2850625834.index

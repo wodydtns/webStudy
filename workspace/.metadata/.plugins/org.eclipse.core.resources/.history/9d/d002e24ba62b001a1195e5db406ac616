@@ -1,0 +1,52 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>02/paramForm.jsp</title>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- 이름,주소,나이,성별,핸드폰,학력,전공,자격증,생일-->
+</head>
+<body>
+	<pre>
+		<a href="../param.do">param.do</a>
+		<button id="clickBtn" type="button">클릭으로 요청 발생</button>
+	</pre>
+	<form action="../param.do" method="post">
+		<pre>
+			이름: <input type="text" name="name"/>
+			주소: <input type="text" name="address"/>
+			생일: <input type="date" name="birth" pattern="\d{8}" placeholder="20190101"/> 
+			성별: <label><input type="radio" name="gender" value="F"/>여</label>
+				 <label><input type="radio" name="gender" value="M"/>남</label>
+			핸드폰: <input type="text" name="hp" pattern="\d{3}-\d{3,4}-\d{4}" placeholder="010-000-0000"/>
+			학력: <select name="grade">
+					<option value="">학력</option> <!-- 값이 넘어가지 않게 하기 위한 조치 / 정보만 전달하기 위한 것(프롬프트 텍스트) -->
+					<option value="G001">초대졸</option> <!-- DB에서 encoding을 고려하지 않게 하는 방법 -->
+					<option value="G002">대졸</option>
+					<option value="G003">석사</option>
+					<option value="G004">박사</option>
+				</select>
+			자격증: 
+			<select multiple name="licence"> <!-- boolean 타입의 property -> 있으면 true, 없으면 false --> 
+				<option value="L001">정보처리기사</option>
+				<option value="L002">정보처리산업기사</option>
+				<option value="L003">정보보안기사</option>
+				<option value="L004">정보보안산업기사</option>
+				<option value="L005">SQLD</option>
+				<option value="L006">SQLP</option>
+			</select>
+		</pre>
+		<button type="submit">submit button</button>
+	</form>
+	<script type="text/javascript">
+		$(function(){
+			$('#clickBtn').on("click",function(e){
+			location.href="../param.do";
+		});
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+package kr.or.ddit.enumpkg;
+
+import kr.or.ddit.web03.Operator;
+
+public enum OperatorType {
+	PLUS('+'),MINUS('-'),MULTIPLY('*'),DIVIDE('/');
+	OperatorType(char sign, Operator operator){
+		this.sign = sign;
+		this.operator = operator;
+	}
+	private Operator operator;
+	public long operate(int leftOp,int rightOp){
+		return operator.operate(leftOp, rightOp);
+	}
+	private char sign;
+	
+	public char getSign(){
+		return sign;
+	}
+}

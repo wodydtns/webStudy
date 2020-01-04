@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>03/calForm.jsp</title>
+</head>
+<body>
+<%!
+	public static enum OperatorType{
+		PLUS,MINUS,MULTIPLY,DIVIDE;
+		private char sign;
+		public char getSign(){
+			return sign;
+		}
+	}
+%>
+	<form>
+		<input type="number" name="leftOp"/>
+		<select name="operator">
+			<%
+			OperatorType[] operatorTypes= OperatorType.values();
+			String ptrn = "<option value='%s'>%s</option>"
+				for(OperatorType temp:operatorTypes){
+					out.println(
+						String.format(ptrn,temp.name())	
+							);
+					
+				}
+			%>
+		</select>
+		<input type="number" name="rightOp"/>
+		
+	</form>
+</body>
+</html>

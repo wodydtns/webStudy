@@ -1,0 +1,19 @@
+INDEX VERSION 1.131
+D:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4209364338.index
+\webStudy02\src
+D:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2699501995.index
+\webStudy01\src
+D:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3160586750.index
+\webStudy_tomcat7\src
+D:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3980278591.index
+\webStudy02\src
+D:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1603545854.index
+\webStudy02\src
+D:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\527029959.index
+\webStudy01\src
+D:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3171534824.index
+\webStudy01\src
+D:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3621785917.index
+\webStudy01\src
+D:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1323909255.index
+\webStudy01\src

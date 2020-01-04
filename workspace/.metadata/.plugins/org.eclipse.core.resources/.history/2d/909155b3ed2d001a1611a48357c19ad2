@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>03/standard.jsp</title>
+</head>
+<body>
+<h4>JSP(Java Server Page)</h4>
+<pre>
+	JSP : 템플릿(1) 기반의 스크립트(2) 형태의 자바 웹 페이지 스펙
+</pre>
+</body>
+</html>

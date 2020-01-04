@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<input type="number" name="first">
+		<input type="number" name="second">
+		<button type="button" value="계산">
+	</body>
+</html>

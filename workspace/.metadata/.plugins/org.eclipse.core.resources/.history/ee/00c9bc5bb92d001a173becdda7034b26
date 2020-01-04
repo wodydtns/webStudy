@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script>
+			
+		</script>
+		
+	</head>
+	<body>
+		<input type="number" name="first">
+		<input type="number" name="second">
+		<button type="button" value="계산">
+	</body>
+</html>

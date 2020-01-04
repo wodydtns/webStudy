@@ -1,0 +1,35 @@
+<%@page import="org.apache.catalina.connector.Request"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="">
+		<input type="number" name="operand"/>!
+		<input type="submit" value="="/>
+		<%!
+			
+		%>
+		<%
+			String num = request.getParameter("operand");
+			int a =0;
+			if(num !=null && num.matches("[1-9]")){
+				int a = Integer.parseInt(num);
+			}
+			for(int i=1;i<=num;i++){
+				
+			}
+		%>
+		<%!
+			
+		%>
+		<span>
+			<%=  %>
+		</span>
+	</form>
+</body>
+</html>

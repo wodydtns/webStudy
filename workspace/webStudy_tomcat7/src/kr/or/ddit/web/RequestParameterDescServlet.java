@@ -1,0 +1,126 @@
+package kr.or.ddit.web;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/param.do")
+public class RequestParameterDescServlet extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("2.GET 요청 처리");
+		URL targetURL = getClass().getResource("request_post_conf2.tmpl");
+		File targetFile = new File(targetURL.getFile());
+		FileReader reader = new FileReader(targetFile);
+		BufferedReader bufReader = new BufferedReader(reader);
+		StringBuffer html = new StringBuffer();
+		String tmp = null;
+		while((tmp=bufReader.readLine())!=null) {
+			html.append(tmp + "\n");
+		}
+		
+		//server.xml ->  <Connector useBodyEncodingForURI="true"> {useBodyEncodingForURI="true"}설정이면 setCharacterEncoding("UTF-8")가 동작
+		// useBodyEncodingForURI="true" : body의 encoding방식을 body의 encoding에게 맡긴다.
+		req.setCharacterEncoding("UTF-8"); // body영역에 인코딩 - body가 없는 것은 무쓸모
+		StringBuffer conf = new StringBuffer();
+		StringBuffer conf_n = new StringBuffer();
+		String pattern = "<tr><td>%s</td><td>%s</td></tr>\n";
+		Map<String,String[]> parameterMap = req.getParameterMap();
+		String value[]=null;
+		String key =null;
+		for(Entry<String,String[]> entry: parameterMap.entrySet()) {
+			key = entry.getKey();
+			value = entry.getValue();
+			conf.append(String.format(pattern,key,Arrays.toString(value)));
+		}
+		
+		Enumeration<String> names = req.getParameterNames();
+		while(names.hasMoreElements()) {
+			String paramName = names.nextElement();
+			String[] paramValue = req.getParameterValues(paramName);
+			System.out.println(paramValue.toString());
+			conf_n.append(String.format(pattern,paramName,Arrays.toString(paramValue)));
+			
+		}
+		String contents = html.toString().replace("%text",conf).
+								toString().replace("%header", conf_n);
+		resp.setContentType("text/html;charset=UTF-8");
+		PrintWriter out =null;
+		try {
+			out = resp.getWriter();
+			out.println(contents);
+			
+		}finally {
+			out.close();
+		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("2.POST 요청 처리");
+		URL targetURL = getClass().getResource("request_post_conf2.tmpl");
+		File targetFile = new File(targetURL.getFile());
+		FileReader reader = new FileReader(targetFile);
+		BufferedReader bufReader = new BufferedReader(reader);
+		StringBuffer html = new StringBuffer();
+		String tmp = null;
+		while((tmp=bufReader.readLine())!=null) {
+			html.append(tmp + "\n");
+		}
+		req.setCharacterEncoding("UTF-8"); // body영역에 인코딩 - 파라미터 꺼내기 전에 encoding 처리
+		StringBuffer conf = new StringBuffer();
+		StringBuffer conf_n = new StringBuffer();
+		String pattern = "<tr><td>%s</td><td>%s</td></tr>\n";
+		Map<String,String[]> parameterMap = req.getParameterMap();
+		String value[]=null;
+		String key =null;
+		for(Entry<String,String[]> entry: parameterMap.entrySet()) {
+			key = entry.getKey();
+			value = entry.getValue();
+			conf.append(String.format(pattern,key,Arrays.toString(value)));
+		}
+		
+		Enumeration<String> names = req.getParameterNames();
+		while(names.hasMoreElements()) {
+			String paramName = names.nextElement();
+			String[] paramValue = req.getParameterValues(paramName);
+			System.out.println(paramValue.toString());
+			conf_n.append(String.format(pattern,paramName,Arrays.toString(paramValue)));
+			
+		}
+		String contents = html.toString().replace("%text",conf).
+								toString().replace("%header", conf_n);
+		resp.setContentType("text/html;charset=UTF-8");
+		PrintWriter out =null;
+		try {
+			out = resp.getWriter();
+			out.println(contents);
+			
+		}finally {
+			out.close();
+		}
+	}
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("1. 요청 접수");
+		super.service(req, resp);
+		System.out.println("3.응답 전송 완료");
+	}
+	
+}

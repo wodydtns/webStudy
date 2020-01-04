@@ -1,0 +1,9 @@
+package kr.or.ddit.enumpkg;
+
+public enum asdf {
+	abcs, asdf,wer
+	
+	asdf(){
+		
+	}
+}

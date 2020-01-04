@@ -1,0 +1,28 @@
+<%@page import="kr.or.ddit.enumpkg.OperatorType"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>03/calForm.jsp</title>
+</head>
+<body>
+	<form action="<%=request.getContextPath() %>/calculator.do">
+		<input type="number" name="leftOp"/>
+		<select name="operator">
+			<%
+			OperatorType[] operatorTypes= OperatorType.values();
+			String ptrn = "<option value='%s'>%s</option>";
+				for(OperatorType temp:operatorTypes){
+					out.println(
+						String.format(ptrn,temp.name(),temp.getSign())	
+							);
+				}
+			%>
+		</select>
+		<input type="number" name="rightOp"/>
+		<button type="submit">=</button>
+	</form>
+</body>
+</html>

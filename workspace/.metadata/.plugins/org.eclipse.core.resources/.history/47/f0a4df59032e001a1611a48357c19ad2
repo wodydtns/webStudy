@@ -1,0 +1,9 @@
+package kr.or.ddit.web03;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+@WebServlet(urlPatterns = "/calculator.do")
+public class CalculatorServlet extends HttpServlet{
+	
+}

@@ -1,0 +1,14 @@
+package kr.or.ddit.enumpkg;
+
+public enum OperatorType {
+	PLUS('+'),MINUS('-'),MULTIPLY('*'),DIVIDE('/');
+	OperatorType(char sign){
+		this.sign = sign;
+	}
+	private Operator operator;
+	private char sign;
+	
+	public char getSign(){
+		return sign;
+	}
+}

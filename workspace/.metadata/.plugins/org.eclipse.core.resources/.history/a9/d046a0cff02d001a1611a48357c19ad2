@@ -1,0 +1,32 @@
+<%@page import="java.util.Date"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"    %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>03/standard.jsp</title>
+</head>
+<body>
+<h4>JSP(Java Server Page)</h4>
+<pre>
+	JSP : 템플릿(1) 기반의 스크립트(2) 방식의 자바 웹 페이지 스펙
+	JSP 소스의 표준 구성 요소
+	1. 정적 텍스트 : HTML, CSS, Javascript, 일반 text
+	2. 스크립트 요소 
+	 	1) 지시자(directive) : <%@  %>, jsp 페이지에 대한 부가정보 설정에 사용
+	 		구체적인 설정은 지시자의 속성(attribute)으로 남긴다. => 
+	 		- page (required)
+	 		- include (optional)
+	 		- taglib (optional)
+	 	2) 스크립틀릿(scriptlet) : <% //java code %>
+	 	3) 표현식 (expression) : <%= "변수 or 값"  %>,<%=new Date(); %>
+	 	4) 선언부 (declaration) : <%! //전역변수 선언 or 메소드 선언 %>
+	 	5) 주석 (comment) : <%-- 주석 --%> - 크게 서버사이드 주석 / 클라이언트 사이드의 주석
+	 	
+	3.기본 객체(내장객체)
+	4.표현 언어(Expression Language)
+	5.JSTL(Java Standard Tag Library)
+</pre>
+</body>
+</html>

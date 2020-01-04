@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script>
+			$(function(){
+				var a = $("input[name=first]");
+				var b = $("input[name=second]");
+				var symbol = $("select[name=sc_select]");
+				var res =0;
+				$('button').on('click',function(){
+					switch(symbol){
+					case "더하기":
+					res = a+b;
+					('#res').html(res);
+										
+					case "빼기":
+					res = a+b;
+					('#res').html(res);
+					case "빼기":
+					res = a+b;
+					('#res').html(res);
+					case "빼기":
+					res = a+b;
+					('#res').html(res);
+					default:
+						('#res').html(res);
+				});
+					
+				}
+			})
+		</script>
+		
+	</head>
+	<body>
+		<input type="number" name="first">
+		<input type="number" name="second">
+		<select name="sc_select">
+			%option		
+		</select>
+		<button type="button" value="계산">
+		<input id="res" type="text">
+	</body>
+</html>
