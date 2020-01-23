@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.or.ddit.prod.dao.IProdDAO">
+  <select id="selectProdList" resultType="ProdVO">
+  	SELECT d.lprod_gu, d.prod_name, d.prod_insdate, d.prod_cost, d.prod_price, d.prod_mileage,d.prod_buyer,d.lprod_nm
+	FROM buyer c join (SELECT a.prod_buyer, b.lprod_gu,a.prod_name, a.prod_insdate, a.prod_cost, a.prod_price, a.prod_mileage, b.lprod_nm
+	FROM prod a join lprod b on (a.prod_lgu = b.lprod_gu)) d on (d.prod_buyer=c.buyer_id)
+  </select>
+</mapper>
