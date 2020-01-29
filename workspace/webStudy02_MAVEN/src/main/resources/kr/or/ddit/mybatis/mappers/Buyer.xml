@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.buyer.dao.IBuyerDAO">
+<sql id="searchFrag">
+	<trim prefix=" WHERE" prefixOverrides="AND">
+		<if test="searchDetail!=null">
+			<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchDetail.buyer_name)">
+				buyer_name = #{searchDetail.buyer_name}
+			
+			</if>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchDetail.buyer_bank)">
+				AND buyer_bank= #{searchDetail.buyer_bank}
+			
+			</if>
+		</if>
+	</trim>
+</sql>
+	<select id="selectBuyerList" resultType="buyerVO" parameterType="PagingVO">
+		SELECT A.*
+		FROM (SELECT b.*,prod_name,ROWNUM rn FROM buyer
+		 b JOIN prod p ON(b.buyer_id = p.prod_buyer) 
+		 <include refid="searchFrag"></include>) A
+		 WHERE rn BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="selectBuyerCount" resultType="int" parameterType="PagingVO">
+		SELECT COUNT(*)
+		FROM (
+		SELECT b.*,prod_name FROM buyer
+		 b JOIN prod p ON(b.buyer_id = p.prod_buyer)
+		 <include refid="searchFrag"></include>
+		)
+		
+	</select> 
+</mapper>	

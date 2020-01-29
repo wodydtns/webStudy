@@ -7,6 +7,7 @@ import kr.or.ddit.exception.UserNotFoundException;
 import kr.or.ddit.member.dao.IMemberDAO;
 import kr.or.ddit.member.dao.MemberDAOImpl;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 public class MemberServiceImpl implements IMemberService {
 	IMemberDAO memberDAO = MemberDAOImpl.getInstance();
@@ -34,10 +35,15 @@ public class MemberServiceImpl implements IMemberService {
 		}
 		return result;
 	}
+	
+	@Override
+	public int readMemberCount(PagingVO pagingVO) {
+		return memberDAO.selectMemberCount(pagingVO);
+	}
 
 	@Override
-	public List<MemberVO> readMemberList() {
-		List<MemberVO> memberList = memberDAO.selectMemberList();
+	public List<MemberVO> readMemberList(PagingVO pagingVO) {
+		List<MemberVO> memberList = memberDAO.selectMemberList(pagingVO);
 		for(MemberVO member:memberList) {
 			System.out.println(member.getMem_mail()+"발송");
 		}

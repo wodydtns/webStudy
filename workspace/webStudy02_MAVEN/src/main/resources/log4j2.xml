@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<!-- appender(어디에) message(메시지를) layout(어떤 형태로 기록) logger(누가 기록을 남기나) logging 
+		event - 등급 : debug>info>warn>error -> 메시지의 경중도, 메세지 기록 기준을 정함 -->
+	 <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+  	<Logger name="jdbc.sqltiming" level="debug" additivity="false">
+	  <AppenderRef ref="Console"/>
+	</Logger>
+  	<Logger name="jdbc.resultsettable" level="debug" additivity="false">
+	  <AppenderRef ref="Console"/>
+	</Logger>
+  
+    <Logger name="kr.or.ddit" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Root level="error">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>

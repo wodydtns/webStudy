@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 /**
  * 회원관리(CRUD)를 위한 Business Logic Layer
@@ -22,7 +23,7 @@ public interface IMemberService {
 	 * 회원목록 조회
 	 * @return 
 	 */
-	public List<MemberVO> readMemberList();
+	public List<MemberVO> readMemberList(PagingVO pagingVO);
 	/**
 	 * 회원정보 상세 조회
 	 * @param mem_id 조회할 회원의 아이디
@@ -42,4 +43,6 @@ public interface IMemberService {
 	 *  	   INVALIDPASSWORD,OK,FAIL
 	 */
 	public ServiceResult removeMember(MemberVO member);
+	public int readMemberCount(PagingVO pagingVO);
+	
 }

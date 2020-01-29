@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import kr.or.ddit.mybatis.CustomSqlSessionFactoryBuilder;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 public class MemberDAOImpl implements IMemberDAO {
 	
@@ -40,11 +41,13 @@ public class MemberDAOImpl implements IMemberDAO {
 	}
 		
 	@Override
-	public List<MemberVO> selectMemberList() {
+	public List<MemberVO> selectMemberList(PagingVO<MemberVO> pagingVO) {
 		try(
 			SqlSession sqlSession = sqlSessionFactory.openSession();
 		){
-			return sqlSession.selectList("kr.or.ddit.member.dao.IMemberDAO.selectMemberList");
+//			return sqlSession.selectList("kr.or.ddit.member.dao.IMemberDAO.selectMemberList",pagingVO);
+			IMemberDAO mapper = sqlSession.getMapper(IMemberDAO.class);
+			return mapper.selectMemberList(pagingVO);
 		}
 	}
 	
@@ -67,6 +70,15 @@ public class MemberDAOImpl implements IMemberDAO {
 			IMemberDAO mapper = sqlSession.getMapper(IMemberDAO.class);
 			return mapper.deleteMember(mem_id);
 		}
+	}
+	@Override
+	public int selectMemberCount(PagingVO pagingVO) {
+		try(
+				SqlSession sqlSession = sqlSessionFactory.openSession(true); // 자동 커밋 실행	
+			){
+				IMemberDAO mapper = sqlSession.getMapper(IMemberDAO.class);
+				return mapper.selectMemberCount(pagingVO);
+			}
 	}
 }
 

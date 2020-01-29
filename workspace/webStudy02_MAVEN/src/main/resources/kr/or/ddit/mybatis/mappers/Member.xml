@@ -1,41 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.or.ddit.member.dao.IMemberDAO">
-	<select id="selectMemberList" resultType="memberVO">
-		SELECT MEM_ID,
-		MEM_NAME, MEM_HP,
+<sql id="searchFrag">
+	<where>
+			<if test="searchVO!=null">
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchVO.searchWord)">
+					<choose>
+						<when test="'id'.equals(searchVO.searchType)">
+							MEM_ID LIKE '%' || #{searchVO.searchWord} || '%'
+						</when>
+						<when test="'name'.equals(searchVO.searchType)">
+							MEM_NAME LIKE '%' || #{searchVO.searchWord} || '%'
+						</when>
+						<when test="'address'.equals(searchVO.searchType)">
+							MEM_ADD1 LIKE '%' || #{searchVO.searchWord} || '%'
+						</when>
+						<otherwise>
+							MEM_ID LIKE '%' || #{searchVO.searchWord} || '%' OR
+							MEM_NAME LIKE '%' || #{searchVO.searchWord} || '%' OR
+							MEM_ADD1 LIKE '%' || #{searchVO.searchWord} || '%'
+							
+						</otherwise>
+					</choose>
+				</if>
+			</if>
+		</where>
+</sql>
+	<select id="selectMemberList" resultType="memberVO"
+		parameterType="PagingVO">
+		SELECT B.*
+		FROM (SELECT ROWNUM rn,A.*
+		FROM (SELECT MEM_ID,
+		MEM_NAME,
+		MEM_HP,
 		MEM_ADD1, MEM_MAIL, MEM_MILEAGE
 		FROM MEMBER
+		<include refid="searchFrag"></include>
+		ORDER BY MEM_BIR DESC) A) B
+		WHERE rn BETWEEN #{startRow} AND #{endRow}
 	</select>
+	<resultMap type="memberVO" id="memberMap" autoMapping="true" >
+		<id property="mem_id" column="MEM_ID"/>
+		<collection property="prodList" javaType="java.util.List" ofType="prodVO" autoMapping="true">
+			
+		</collection>
+	</resultMap>
 	<select id="selectMember" parameterType="String"
-		resultType="memberVO">
+		resultMap="memberMap">
 		SELECT
 		MEM_ID, MEM_PASS, MEM_NAME,
-		MEM_REGNO1, MEM_REGNO2, TO_CHAR(MEM_BIR, 'YYYY-MM-DD') MEM_BIR,
+		MEM_REGNO1, MEM_REGNO2,
+		TO_CHAR(MEM_BIR, 'YYYY-MM-DD') MEM_BIR,
 		MEM_ZIP, MEM_ADD1, MEM_ADD2,
 		MEM_HOMETEL, MEM_COMTEL, MEM_HP,
 		MEM_MAIL, MEM_JOB, MEM_LIKE,
-		MEM_MEMORIAL, TO_CHAR(MEM_MEMORIALDAY, 'YYYY-MM-DD') MEM_MEMORIALDAY, MEM_MILEAGE,
-		MEM_DELETE
-		FROM MEMBER
+		MEM_MEMORIAL, TO_CHAR(MEM_MEMORIALDAY, 'YYYY-MM-DD') MEM_MEMORIALDAY,
+		MEM_MILEAGE,
+		MEM_DELETE,
+		PROD_NAME, PROD_COST,PROD_PRICE,PROD_MILEAGE, LPROD_NM
+		, BUYER_NAME
+		FROM MEMBER LEFT OUTER JOIN CART ON (MEM_ID = CART_MEMBER)
+            LEFT OUTER JOIN PROD ON (CART_PROD = PROD_ID)
+            LEFT OUTER JOIN LPROD ON (PROD_LGU= LPROD_GU)
+            LEFT OUTER JOIN BUYER ON (PROD_BUYER= BUYER_ID)
 		WHERE MEM_ID = #{noname}
 	</select>
 	<update id="updateMember" parameterType="memberVO">
 		UPDATE MEMBER
 		SET
 		MEM_NAME =#{mem_name,jdbcType=VARCHAR},
-		MEM_ZIP =#{mem_zip,jdbcType=VARCHAR} ,
+		MEM_ZIP
+		=#{mem_zip,jdbcType=VARCHAR} ,
 		MEM_ADD1 =#{mem_add1,jdbcType=VARCHAR} ,
 		MEM_ADD2 =#{mem_add2,jdbcType=VARCHAR} ,
-		MEM_HOMETEL =#{mem_hometel,jdbcType=VARCHAR} ,
-		MEM_COMTEL =#{mem_comtel,jdbcType=VARCHAR} ,
+		MEM_HOMETEL
+		=#{mem_hometel,jdbcType=VARCHAR} ,
+		MEM_COMTEL
+		=#{mem_comtel,jdbcType=VARCHAR} ,
 		MEM_HP =#{mem_hp,jdbcType=VARCHAR} ,
 		MEM_MAIL =#{mem_mail,jdbcType=VARCHAR} ,
-		MEM_JOB =#{mem_job,jdbcType=VARCHAR} ,
+		MEM_JOB
+		=#{mem_job,jdbcType=VARCHAR} ,
 		MEM_LIKE =#{mem_like,jdbcType=VARCHAR} ,
 		MEM_MEMORIAL =#{mem_memorial,jdbcType=VARCHAR} ,
-		MEM_MEMORIALDAY = TO_DATE(#{mem_memorialday,jdbcType=DATE}, 'YYYY-MM-DD')
-		WHERE MEM_ID =#{mem_id}
+		MEM_MEMORIALDAY =
+		TO_DATE(#{mem_memorialday,jdbcType=DATE}, 'YYYY-MM-DD')
+		WHERE MEM_ID
+		=#{mem_id}
 	</update>
 	<delete id="deleteMember" parameterType="String">
 		UPDATE MEMBER
@@ -47,21 +98,33 @@
 		INSERT INTO MEMBER (
 		MEM_ID, MEM_PASS, MEM_NAME,
 		MEM_REGNO1, MEM_REGNO2, MEM_BIR,
-		MEM_ZIP, MEM_ADD1, MEM_ADD2,
+		MEM_ZIP,
+		MEM_ADD1, MEM_ADD2,
 		MEM_HOMETEL, MEM_COMTEL, MEM_HP,
-		MEM_MAIL, MEM_JOB, MEM_LIKE,
+		MEM_MAIL, MEM_JOB,
+		MEM_LIKE,
 		MEM_MEMORIAL, MEM_MEMORIALDAY, MEM_MILEAGE
 		) VALUES (
-		#{mem_id,jdbcType=VARCHAR}, #{mem_pass,jdbcType=VARCHAR}, #{mem_name,jdbcType=VARCHAR},
-		#{mem_regno1,jdbcType=VARCHAR}, #{mem_regno2,jdbcType=VARCHAR},
+		#{mem_id,jdbcType=VARCHAR}, #{mem_pass,jdbcType=VARCHAR},
+		#{mem_name,jdbcType=VARCHAR},
+		#{mem_regno1,jdbcType=VARCHAR},
+		#{mem_regno2,jdbcType=VARCHAR},
 		#{mem_bir,jdbcType=VARCHAR},
-		#{mem_zip,jdbcType=VARCHAR}, #{mem_add1,jdbcType=VARCHAR}, #{mem_add2,jdbcType=VARCHAR},
-		#{mem_hometel,jdbcType=VARCHAR}, #{mem_comtel,jdbcType=VARCHAR},
+		#{mem_zip,jdbcType=VARCHAR}, #{mem_add1,jdbcType=VARCHAR},
+		#{mem_add2,jdbcType=VARCHAR},
+		#{mem_hometel,jdbcType=VARCHAR},
+		#{mem_comtel,jdbcType=VARCHAR},
 		#{mem_hp,jdbcType=VARCHAR},
 		#{mem_mail,jdbcType=VARCHAR}, #{mem_job,jdbcType=VARCHAR},
 		#{mem_like,jdbcType=VARCHAR},
-		#{mem_memorial,jdbcType=VARCHAR}, #{mem_memorialday,jdbcType=DATE},
+		#{mem_memorial,jdbcType=VARCHAR},
+		#{mem_memorialday,jdbcType=DATE},
 		#{mem_mileage,jdbcType=INTEGER}
 		)
 	</insert>
+	<select id="selectMemberCount" resultType="int">
+		SELECT COUNT(*) FROM member
+		<include refid="searchFrag"></include>
+		
+	</select>
 </mapper>
